@@ -5,6 +5,8 @@ export type Vehicle = {
 	make: string;
 	model: string;
 	licensePlate: string;
+	vin: string;
+	personId: number;
 	owner: Person;
 };
 
