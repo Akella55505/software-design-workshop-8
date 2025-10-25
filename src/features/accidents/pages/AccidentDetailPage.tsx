@@ -128,7 +128,7 @@ export function AccidentDetailPage(): ReactElement {
 					{errors.time && <p className="text-red-500 text-sm mt-1">{errors.time.message}</p>}
 				</div>
 
-				<button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 disabled:bg-gray-400" disabled={updateAccidentMutation.isPending} type="submit">
+				<button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 disabled:bg-gray-400 cursor-pointer" disabled={updateAccidentMutation.isPending} type="submit">
 					{updateAccidentMutation.isPending ? 'Saving...' : 'Save Changes'}
 				</button>
 			</form>

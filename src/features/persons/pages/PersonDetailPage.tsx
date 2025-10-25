@@ -63,7 +63,7 @@ export function PersonDetailPage(): ReactElement {
 					{errors.patronymic && <p className="text-red-500 text-sm mt-1">{errors.patronymic.message}</p>}
 				</div>
 
-				<button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 disabled:bg-gray-400" disabled={updatePersonMutation.isPending} type="submit">
+				<button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 disabled:bg-gray-400 cursor-pointer" disabled={updatePersonMutation.isPending} type="submit">
 					{updatePersonMutation.isPending ? 'Saving...' : 'Save Changes'}
 				</button>
 			</form>

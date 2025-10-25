@@ -49,6 +49,7 @@ export function PersonCreatePage(): ReactElement {
 				if (isAxiosError(error)) {
 					if (error.response?.status === 409) {
 						alert("A person with these passport data already exists.");
+						return;
 					}
 				}
 				alert("Unexpected error occurred.");
@@ -91,7 +92,7 @@ export function PersonCreatePage(): ReactElement {
 				</div>
 
 				<button
-					className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-400"
+					className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:bg-gray-400 cursor-pointer"
 					disabled={createPersonMutation.isPending}
 					type="submit"
 				>
