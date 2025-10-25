@@ -58,7 +58,7 @@ export function AccidentsListPage(): ReactElement {
 						(accident: Accident) => (
 							<tr key={accident.id}>
 								<td className="py-2 px-4 border-b">
-									{accident.date as unknown as string}
+									{String(accident.date)}
 								</td>
 								<td className="py-2 px-4 border-b">
 									{accident.media !== "" ? accident.media : '—'}
@@ -91,7 +91,7 @@ export function AccidentsListPage(): ReactElement {
 									<Link
 										className="text-indigo-600 hover:text-indigo-900 mr-4"
 										from={Route.fullPath}
-										to={`./${accident.id as unknown as string}`}
+										to={`./${String(accident.id)}`}
 									>
 										Edit
 									</Link>
@@ -99,7 +99,7 @@ export function AccidentsListPage(): ReactElement {
 										className="text-red-600 hover:text-red-900 disabled:opacity-50 cursor-pointer"
 										disabled={deleteAccidentMutation.isPending}
 										onClick={() => {
-											handleDelete(accident.id as unknown as string);
+											handleDelete(String(accident.id));
 										}}
 									>
 										Delete

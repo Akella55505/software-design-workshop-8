@@ -4,7 +4,7 @@ import type { ReactElement } from "react";
 import type { Person } from "../types";
 import { Route } from "../../../routes/persons.tsx";
 
-type PersonsResponse = {
+export type PersonsResponse = {
 	message: string;
 	data: Array<Person>;
 }
@@ -43,6 +43,7 @@ export function PersonsListPage(): ReactElement {
 					<th className="py-2 px-4 border-b">Surname</th>
 					<th className="py-2 px-4 border-b">Patronymic</th>
 					<th className="py-2 px-4 border-b">Vehicles</th>
+					<th className="py-2 px-4 border-b">Actions</th>
 				</tr>
 				</thead>
 
@@ -64,7 +65,7 @@ export function PersonsListPage(): ReactElement {
 								<Link
 									className="text-indigo-600 hover:text-indigo-900 mr-4"
 									from={Route.fullPath}
-									to={`./${person.id as unknown as string}`}
+									to={`./${String(person.id)}`}
 								>
 									Edit
 								</Link>
@@ -72,7 +73,7 @@ export function PersonsListPage(): ReactElement {
 									className="text-red-600 hover:text-red-900 disabled:opacity-50 cursor-pointer"
 									disabled={deletePersonMutation.isPending}
 									onClick={() => {
-										handleDelete(person.id as unknown as string);
+										handleDelete(String(person.id));
 									}}
 								>
 									Delete
