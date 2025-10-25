@@ -9,38 +9,174 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as VehiclesRouteImport } from './routes/vehicles'
+import { Route as PersonsRouteImport } from './routes/persons'
+import { Route as AccidentsRouteImport } from './routes/accidents'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as VehiclesNewRouteImport } from './routes/vehicles.new'
+import { Route as VehiclesVehicleIdRouteImport } from './routes/vehicles/$vehicleId'
+import { Route as PersonsNewRouteImport } from './routes/persons.new'
+import { Route as PersonsPersonIdRouteImport } from './routes/persons/$personId'
+import { Route as AccidentsNewRouteImport } from './routes/accidents.new'
+import { Route as AccidentsAccidentIdRouteImport } from './routes/accidents/$accidentId'
 
+const VehiclesRoute = VehiclesRouteImport.update({
+  id: '/vehicles',
+  path: '/vehicles',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PersonsRoute = PersonsRouteImport.update({
+  id: '/persons',
+  path: '/persons',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccidentsRoute = AccidentsRouteImport.update({
+  id: '/accidents',
+  path: '/accidents',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VehiclesNewRoute = VehiclesNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => VehiclesRoute,
+} as any)
+const VehiclesVehicleIdRoute = VehiclesVehicleIdRouteImport.update({
+  id: '/$vehicleId',
+  path: '/$vehicleId',
+  getParentRoute: () => VehiclesRoute,
+} as any)
+const PersonsNewRoute = PersonsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => PersonsRoute,
+} as any)
+const PersonsPersonIdRoute = PersonsPersonIdRouteImport.update({
+  id: '/$personId',
+  path: '/$personId',
+  getParentRoute: () => PersonsRoute,
+} as any)
+const AccidentsNewRoute = AccidentsNewRouteImport.update({
+  id: '/new',
+  path: '/new',
+  getParentRoute: () => AccidentsRoute,
+} as any)
+const AccidentsAccidentIdRoute = AccidentsAccidentIdRouteImport.update({
+  id: '/$accidentId',
+  path: '/$accidentId',
+  getParentRoute: () => AccidentsRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/accidents': typeof AccidentsRouteWithChildren
+  '/persons': typeof PersonsRouteWithChildren
+  '/vehicles': typeof VehiclesRouteWithChildren
+  '/accidents/$accidentId': typeof AccidentsAccidentIdRoute
+  '/accidents/new': typeof AccidentsNewRoute
+  '/persons/$personId': typeof PersonsPersonIdRoute
+  '/persons/new': typeof PersonsNewRoute
+  '/vehicles/$vehicleId': typeof VehiclesVehicleIdRoute
+  '/vehicles/new': typeof VehiclesNewRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/accidents': typeof AccidentsRouteWithChildren
+  '/persons': typeof PersonsRouteWithChildren
+  '/vehicles': typeof VehiclesRouteWithChildren
+  '/accidents/$accidentId': typeof AccidentsAccidentIdRoute
+  '/accidents/new': typeof AccidentsNewRoute
+  '/persons/$personId': typeof PersonsPersonIdRoute
+  '/persons/new': typeof PersonsNewRoute
+  '/vehicles/$vehicleId': typeof VehiclesVehicleIdRoute
+  '/vehicles/new': typeof VehiclesNewRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/accidents': typeof AccidentsRouteWithChildren
+  '/persons': typeof PersonsRouteWithChildren
+  '/vehicles': typeof VehiclesRouteWithChildren
+  '/accidents/$accidentId': typeof AccidentsAccidentIdRoute
+  '/accidents/new': typeof AccidentsNewRoute
+  '/persons/$personId': typeof PersonsPersonIdRoute
+  '/persons/new': typeof PersonsNewRoute
+  '/vehicles/$vehicleId': typeof VehiclesVehicleIdRoute
+  '/vehicles/new': typeof VehiclesNewRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/accidents'
+    | '/persons'
+    | '/vehicles'
+    | '/accidents/$accidentId'
+    | '/accidents/new'
+    | '/persons/$personId'
+    | '/persons/new'
+    | '/vehicles/$vehicleId'
+    | '/vehicles/new'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/accidents'
+    | '/persons'
+    | '/vehicles'
+    | '/accidents/$accidentId'
+    | '/accidents/new'
+    | '/persons/$personId'
+    | '/persons/new'
+    | '/vehicles/$vehicleId'
+    | '/vehicles/new'
+  id:
+    | '__root__'
+    | '/'
+    | '/accidents'
+    | '/persons'
+    | '/vehicles'
+    | '/accidents/$accidentId'
+    | '/accidents/new'
+    | '/persons/$personId'
+    | '/persons/new'
+    | '/vehicles/$vehicleId'
+    | '/vehicles/new'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccidentsRoute: typeof AccidentsRouteWithChildren
+  PersonsRoute: typeof PersonsRouteWithChildren
+  VehiclesRoute: typeof VehiclesRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/vehicles': {
+      id: '/vehicles'
+      path: '/vehicles'
+      fullPath: '/vehicles'
+      preLoaderRoute: typeof VehiclesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/persons': {
+      id: '/persons'
+      path: '/persons'
+      fullPath: '/persons'
+      preLoaderRoute: typeof PersonsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/accidents': {
+      id: '/accidents'
+      path: '/accidents'
+      fullPath: '/accidents'
+      preLoaderRoute: typeof AccidentsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,11 +184,97 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/vehicles/new': {
+      id: '/vehicles/new'
+      path: '/new'
+      fullPath: '/vehicles/new'
+      preLoaderRoute: typeof VehiclesNewRouteImport
+      parentRoute: typeof VehiclesRoute
+    }
+    '/vehicles/$vehicleId': {
+      id: '/vehicles/$vehicleId'
+      path: '/$vehicleId'
+      fullPath: '/vehicles/$vehicleId'
+      preLoaderRoute: typeof VehiclesVehicleIdRouteImport
+      parentRoute: typeof VehiclesRoute
+    }
+    '/persons/new': {
+      id: '/persons/new'
+      path: '/new'
+      fullPath: '/persons/new'
+      preLoaderRoute: typeof PersonsNewRouteImport
+      parentRoute: typeof PersonsRoute
+    }
+    '/persons/$personId': {
+      id: '/persons/$personId'
+      path: '/$personId'
+      fullPath: '/persons/$personId'
+      preLoaderRoute: typeof PersonsPersonIdRouteImport
+      parentRoute: typeof PersonsRoute
+    }
+    '/accidents/new': {
+      id: '/accidents/new'
+      path: '/new'
+      fullPath: '/accidents/new'
+      preLoaderRoute: typeof AccidentsNewRouteImport
+      parentRoute: typeof AccidentsRoute
+    }
+    '/accidents/$accidentId': {
+      id: '/accidents/$accidentId'
+      path: '/$accidentId'
+      fullPath: '/accidents/$accidentId'
+      preLoaderRoute: typeof AccidentsAccidentIdRouteImport
+      parentRoute: typeof AccidentsRoute
+    }
   }
 }
 
+interface AccidentsRouteChildren {
+  AccidentsAccidentIdRoute: typeof AccidentsAccidentIdRoute
+  AccidentsNewRoute: typeof AccidentsNewRoute
+}
+
+const AccidentsRouteChildren: AccidentsRouteChildren = {
+  AccidentsAccidentIdRoute: AccidentsAccidentIdRoute,
+  AccidentsNewRoute: AccidentsNewRoute,
+}
+
+const AccidentsRouteWithChildren = AccidentsRoute._addFileChildren(
+  AccidentsRouteChildren,
+)
+
+interface PersonsRouteChildren {
+  PersonsPersonIdRoute: typeof PersonsPersonIdRoute
+  PersonsNewRoute: typeof PersonsNewRoute
+}
+
+const PersonsRouteChildren: PersonsRouteChildren = {
+  PersonsPersonIdRoute: PersonsPersonIdRoute,
+  PersonsNewRoute: PersonsNewRoute,
+}
+
+const PersonsRouteWithChildren =
+  PersonsRoute._addFileChildren(PersonsRouteChildren)
+
+interface VehiclesRouteChildren {
+  VehiclesVehicleIdRoute: typeof VehiclesVehicleIdRoute
+  VehiclesNewRoute: typeof VehiclesNewRoute
+}
+
+const VehiclesRouteChildren: VehiclesRouteChildren = {
+  VehiclesVehicleIdRoute: VehiclesVehicleIdRoute,
+  VehiclesNewRoute: VehiclesNewRoute,
+}
+
+const VehiclesRouteWithChildren = VehiclesRoute._addFileChildren(
+  VehiclesRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccidentsRoute: AccidentsRouteWithChildren,
+  PersonsRoute: PersonsRouteWithChildren,
+  VehiclesRoute: VehiclesRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
