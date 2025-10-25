@@ -22,7 +22,7 @@ if (!rootElement.innerHTML) {
 	const root = ReactDOM.createRoot(rootElement);
 	root.render(
 		<React.StrictMode>
-			<React.Suspense fallback="loading">
+			<React.Suspense>
 				<App router={router} />
 			</React.Suspense>
 		</React.StrictMode>
