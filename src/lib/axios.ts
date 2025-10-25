@@ -1,11 +1,17 @@
 import axios from 'axios';
 
 const apiClient = axios.create({
-	baseURL: process.env['VITE_API_BASE_URL'],
+	baseURL: import.meta.env["VITE_API_BASE_URL"] as string,
 	headers: {
-		'Content-Type': 'application/json',
-	}
+		"Content-Type": "application/json",
+	},
 });
+
+// TODO: implement login
+const token = import.meta.env["VITE_API_AUTH_TOKEN"] as string;
+if (token) {
+	apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+}
 
 apiClient.interceptors.response.use(
 	(response) => response,
