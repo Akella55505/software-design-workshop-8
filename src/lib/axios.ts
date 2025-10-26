@@ -1,23 +1,33 @@
-import axios from 'axios';
+import axios, { isAxiosError } from "axios";
+import { useAuthStore } from '../store/auth';
 
 const apiClient = axios.create({
-	baseURL: import.meta.env["VITE_API_BASE_URL"] as string,
+	baseURL: String(import.meta.env["VITE_API_BASE_URL"]),
 	headers: {
 		"Content-Type": "application/json",
 	},
 });
 
-// TODO: implement login
-const token = import.meta.env["VITE_API_AUTH_TOKEN"] as string;
-if (token) {
-	apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-}
+apiClient.interceptors.request.use((config) => {
+	const token = useAuthStore.getState().token;
+	if (token) config.headers.Authorization = `${token}`;
+	return config;
+});
 
 apiClient.interceptors.response.use(
 	(response) => response,
-	(error: Error) => {
-		console.error(`API error ${error.name}: ${error.message}`);
-		return Promise.reject(error);
+	(error: unknown) => {
+		if (isAxiosError(error)) {
+			console.error(`API error ${error.name}: ${error.message}`);
+			// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+			if (error.response?.status === 401 || error.response?.data.errorMessage === 'Authorization header not provided') {
+				const { clearToken } = useAuthStore.getState();
+				clearToken();
+				window.location.href = '/login';
+			}
+			return Promise.reject(error);
+		}
+		return;
 	}
 );
 
