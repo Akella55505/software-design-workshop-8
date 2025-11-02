@@ -3,6 +3,7 @@ import { usePersons, useDeletePerson } from '../api';
 import type { ReactElement } from "react";
 import type { Person } from "../types";
 import { Route } from "../../../routes/persons.tsx";
+import { loadingAnimation } from "../../../common/elements.tsx";
 
 export type PersonsResponse = {
 	message: string;
@@ -18,7 +19,7 @@ export function PersonsListPage(): ReactElement {
 		}
 	};
 
-	if (isLoading) return <div className="flex items-center justify-center h-screen text-4xl font-bold">Loading...</div>;
+	if (isLoading) return loadingAnimation();
 
 	if (isError) return <div className="flex items-center justify-center h-screen text-4xl font-bold">Error loading persons: {error.message}</div>;
 

@@ -3,6 +3,7 @@ import { useVehicles, useDeleteVehicle } from '../api';
 import type { ReactElement } from "react";
 import type { Vehicle } from "../types";
 import { Route } from "../../../routes/vehicles.tsx";
+import { loadingAnimation } from "../../../common/elements.tsx";
 
 type VehiclesResponse = {
 	message: string;
@@ -18,7 +19,7 @@ export function VehiclesListPage(): ReactElement {
 		}
 	};
 
-	if (isLoading) return <div className="flex items-center justify-center h-screen text-4xl font-bold">Loading...</div>;
+	if (isLoading) return loadingAnimation();
 
 	if (isError) return <div className="flex items-center justify-center h-screen text-4xl font-bold">Error loading vehicles: {error.message}</div>;
 

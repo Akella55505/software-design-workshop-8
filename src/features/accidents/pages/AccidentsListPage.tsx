@@ -3,6 +3,7 @@ import { useAccidents, useDeleteAccident } from '../api';
 import type { ReactElement } from "react";
 import type { Accident } from "../types";
 import { Route } from "../../../routes/accidents.tsx";
+import { loadingAnimation } from "../../../common/elements.tsx";
 
 type AccidentsResponse = {
 	message: string;
@@ -18,7 +19,7 @@ export function AccidentsListPage(): ReactElement {
 		}
 	};
 
-	if (isLoading) return <div className="flex items-center justify-center h-screen text-4xl font-bold">Loading...</div>;
+	if (isLoading) return loadingAnimation();
 
 	if (isError) return <div className="flex items-center justify-center h-screen text-4xl font-bold">Error loading accidents: {error.message}</div>;
 
