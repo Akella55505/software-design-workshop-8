@@ -26,6 +26,7 @@ export const useLogin = (): UseMutationResult<LoginResponse, Error, LoginInput, 
 	return useMutation({
 		mutationFn: login,
 		onSuccess: async (data) => {
+			localStorage.setItem("Token", data.data);
 			useAuthStore.getState().setToken(data.data);
 			await navigate({ to: "/accidents" });
 		},
