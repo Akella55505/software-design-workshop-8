@@ -6,7 +6,9 @@ on:
     branches:
       - master
       - feature/*
-
+permissions:
+  packages: write
+  contents: read
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
