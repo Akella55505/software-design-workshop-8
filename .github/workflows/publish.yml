@@ -1,4 +1,4 @@
-name: build-and-push
+name: Workshot frontend CI/CD
 
 on:
   workflow_dispatch:
